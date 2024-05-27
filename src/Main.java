@@ -1,81 +1,109 @@
+import java.util.Arrays;
+
 public class Main {
-
-    public static class Employee {
-        private String fullName;
-        private String position;
-        private String email;
-        private String phoneNumber;
-        private int salary;
-        private int age;
-
-        public Employee(String fullName, String position, String email, String phoneNumber, int salary, int age) {
-            this.fullName = fullName;
-            this.position = position;
-            this.email = email;
-            this.phoneNumber = phoneNumber;
-            this.salary = salary;
-            this.age = age;
-        }
-
-        public void printInfo() {
-            System.out.println("ФИО: " + fullName);
-            System.out.println("Должность: " + position);
-            System.out.println("Email: " + email);
-            System.out.println("Телефон: " + phoneNumber);
-            System.out.println("Зарплата: " + salary);
-            System.out.println("Возраст: " + age);
-            System.out.println();
-        }
-    }
-
-    public static class Park {
-
-        public class Attraction {
-            private String name;
-            private String workingHours;
-            private int cost;
-
-            public Attraction(String name, String workingHours, int cost) {
-                this.name = name;
-                this.workingHours = workingHours;
-                this.cost = cost;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public String getWorkingHours() {
-                return workingHours;
-            }
-
-            public int getCost() {
-                return cost;
-            }
-        }
-    }
-
     public static void main(String[] args) {
+        Cat[] cats = new Cat[3];
+        cats[0] = new Cat("Barsik");
+        cats[1] = new Cat("Murzik");
+        cats[2] = new Cat("Tom");
 
-        Employee[] employees = new Employee[5];
-        employees[0] = new Employee("Иванов Иван", "Инженер", "ivivan@mailbox.com", "892312312", 30000, 30);
-        employees[1] = new Employee("Петров Петр", "Менеджер", "petrov@mailbox.com", "891512512", 40000, 35);
-        employees[2] = new Employee("Сидоров Сидор", "Программист", "sidorov@mailbox.com", "893712712", 50000, 25);
-        employees[3] = new Employee("Козлов Константин", "Администратор", "kozlov@mailbox.com", "895312812", 35000, 28);
-        employees[4] = new Employee("Михайлов Михаил", "Дизайнер", "mikhailov@mailbox.com", "894112412", 45000, 32);
+        Bowl bowl = new Bowl(15);
 
-        for (Employee employee : employees) {
-            employee.printInfo();
+        for (Cat cat : cats) {
+            cat.eat(bowl);
+            cat.run(100);
+            cat.swim(5);
+            System.out.println(cat);
         }
 
-        Park park = new Park();
-        Park.Attraction attraction1 = park.new Attraction("Колесо обозрения", "10:00 - 22:00", 500);
-        Park.Attraction attraction2 = park.new Attraction("Американские горки", "12:00 - 20:00", 700);
-        Park.Attraction attraction3 = park.new Attraction("Детские карусели", "11:00 - 18:00", 300);
+        System.out.println("Количество созданных котов: " + Cat.getCount());
+    }
+}
 
-        System.out.println("Информация об аттракционах в парке:");
-        System.out.println("Аттракция: " + attraction1.getName() + ", Время работы: " + attraction1.getWorkingHours() + ", Стоимость: " + attraction1.getCost());
-        System.out.println("Аттракция: " + attraction2.getName() + ", Время работы: " + attraction2.getWorkingHours() + ", Стоимость: " + attraction2.getCost());
-        System.out.println("Аттракция: " + attraction3.getName() + ", Время работы: " + attraction3.getWorkingHours() + ", Стоимость: " + attraction3.getCost());
+class Animal {
+    protected String name;
+    protected int runLimit;
+    protected int swimLimit;
+
+    public Animal(String name, int runLimit, int swimLimit) {
+        this.name = name;
+        this.runLimit = runLimit;
+        this.swimLimit = swimLimit;
+    }
+
+    public void run(int distance) {
+        if (distance <= runLimit) {
+            System.out.println(name + " пробежал " + distance + " м.");
+        } else {
+            System.out.println(name + " не может пробежать так далеко.");
+        }
+    }
+
+    public void swim(int distance) {
+        if (swimLimit == 0) {
+            System.out.println(name + " не умеет плавать.");
+        } else if (distance <= swimLimit) {
+            System.out.println(name + " проплыл " + distance + " м.");
+        } else {
+            System.out.println(name + " не может проплыть так далеко.");
+        }
+    }
+}
+
+class Cat extends Animal {
+    private static int count;
+
+    private boolean fullness;
+
+    public Cat(String name) {
+        super(name, 200, 0);
+        count++;
+        this.fullness = false;
+    }
+
+    public void eat(Bowl bowl) {
+        if (bowl.decreaseFood()) {
+            fullness = true;
+            System.out.println(name + " поел.");
+        } else {
+            System.out.println("Миска пуста, " + name + " не смог поесть.");
+        }
+    }
+
+    public boolean isFull() {
+        return fullness;
+    }
+
+    public static int getCount() {
+        return count;
+    }
+
+    @Override
+    public String toString() {
+        return "Cat{" +
+                "name='" + name + '\'' +
+                ", fullness=" + fullness +
+                '}';
+    }
+}
+
+class Bowl {
+    private int food;
+
+    public Bowl(int food) {
+        this.food = food;
+    }
+
+    public boolean decreaseFood() {
+        if (food >= 5) {
+            food -= 5;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void addFood(int amount) {
+        food += amount;
     }
 }
