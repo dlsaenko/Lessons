@@ -1,119 +1,81 @@
 public class Main {
 
-    public static void main(String[] args) {
-        printThreeWords();
-        checkSumSign();
-        printColor();
-        compareNumbers();
-        System.out.println(isSumInRange(5, 6));
-        printPositiveOrNegative(-7);
-        System.out.println(isNegativeNumber(-8));
-        printStringNTimes("Hello", 3);
-        System.out.println(isLeapYear(2024));
+    public static class Employee {
+        private String fullName;
+        private String position;
+        private String email;
+        private String phoneNumber;
+        private int salary;
+        private int age;
 
-        int[] array1 = {1, 1, 0, 0, 1, 0, 1, 1, 0, 0};
-        invertArray(array1);
+        public Employee(String fullName, String position, String email, String phoneNumber, int salary, int age) {
+            this.fullName = fullName;
+            this.position = position;
+            this.email = email;
+            this.phoneNumber = phoneNumber;
+            this.salary = salary;
+            this.age = age;
+        }
 
-        int[] array2 = new int[100];
-        fillArrayFrom1To100(array2);
-
-        int[] array3 = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
-        multiplyLessThan6(array3);
-
-        int[][] squareArray = createSquareArray(5);
-        fillDiagonalWithOnes(squareArray);
-    }
-
-    public static void printThreeWords() {
-        System.out.println("Orange\nBanana\nApple");
-    }
-
-    public static void checkSumSign() {
-        int a = 5;
-        int b = -3;
-        int sum = a + b;
-        if (sum >= 0) {
-            System.out.println("Сумма положительная");
-        } else {
-            System.out.println("Сумма отрицательная");
+        public void printInfo() {
+            System.out.println("ФИО: " + fullName);
+            System.out.println("Должность: " + position);
+            System.out.println("Email: " + email);
+            System.out.println("Телефон: " + phoneNumber);
+            System.out.println("Зарплата: " + salary);
+            System.out.println("Возраст: " + age);
+            System.out.println();
         }
     }
 
-    public static void printColor() {
-        int value = 75;
-        if (value <= 0) {
-            System.out.println("Красный");
-        } else if (value <= 100) {
-            System.out.println("Желтый");
-        } else {
-            System.out.println("Зеленый");
-        }
-    }
+    public static class Park {
 
-    public static void compareNumbers() {
-        int a = 8;
-        int b = 5;
-        if (a >= b) {
-            System.out.println("a >= b");
-        } else {
-            System.out.println("a < b");
-        }
-    }
+        public class Attraction {
+            private String name;
+            private String workingHours;
+            private int cost;
 
-    public static boolean isSumInRange(int a, int b) {
-        int sum = a + b;
-        return sum >= 10 && sum <= 20;
-    }
+            public Attraction(String name, String workingHours, int cost) {
+                this.name = name;
+                this.workingHours = workingHours;
+                this.cost = cost;
+            }
 
-    public static void printPositiveOrNegative(int number) {
-        if (number >= 0) {
-            System.out.println("Положительное число");
-        } else {
-            System.out.println("Отрицательное число");
-        }
-    }
+            public String getName() {
+                return name;
+            }
 
-    public static boolean isNegativeNumber(int number) {
-        return number < 0;
-    }
+            public String getWorkingHours() {
+                return workingHours;
+            }
 
-    public static void printStringNTimes(String str, int n) {
-        for (int i = 0; i < n; i++) {
-            System.out.println(str);
-        }
-    }
-
-    public static boolean isLeapYear(int year) {
-        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
-    }
-
-    public static void invertArray(int[] array) {
-        for (int i = 0; i < array.length; i++) {
-            array[i] = array[i] == 0 ? 1 : 0;
-        }
-    }
-
-    public static void fillArrayFrom1To100(int[] array) {
-        for (int i = 0; i < array.length; i++) {
-            array[i] = i + 1;
-        }
-    }
-
-    public static void multiplyLessThan6(int[] array) {
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] < 6) {
-                array[i] *= 2;
+            public int getCost() {
+                return cost;
             }
         }
     }
 
-    public static int[][] createSquareArray(int size) {
-        return new int[size][size];
-    }
+    public static void main(String[] args) {
 
-    public static void fillDiagonalWithOnes(int[][] array) {
-        for (int i = 0; i < array.length; i++) {
-            array[i][i] = 1;
+        Employee[] employees = new Employee[5];
+        employees[0] = new Employee("Иванов Иван", "Инженер", "ivivan@mailbox.com", "892312312", 30000, 30);
+        employees[1] = new Employee("Петров Петр", "Менеджер", "petrov@mailbox.com", "891512512", 40000, 35);
+        employees[2] = new Employee("Сидоров Сидор", "Программист", "sidorov@mailbox.com", "893712712", 50000, 25);
+        employees[3] = new Employee("Козлов Константин", "Администратор", "kozlov@mailbox.com", "895312812", 35000, 28);
+        employees[4] = new Employee("Михайлов Михаил", "Дизайнер", "mikhailov@mailbox.com", "894112412", 45000, 32);
+
+        for (Employee employee : employees) {
+            employee.printInfo();
         }
+
+        Park park = new Park();
+        Park.Attraction attraction1 = park.new Attraction("Колесо обозрения", "10:00 - 22:00", 500);
+        Park.Attraction attraction2 = park.new Attraction("Американские горки", "12:00 - 20:00", 700);
+        Park.Attraction attraction3 = park.new Attraction("Детские карусели", "11:00 - 18:00", 300);
+
+        System.out.println("Информация об аттракционах в парке:");
+        System.out.println("Аттракция: " + attraction1.getName() + ", Время работы: " + attraction1.getWorkingHours() + ", Стоимость: " + attraction1.getCost());
+        System.out.println("Аттракция: " + attraction2.getName() + ", Время работы: " + attraction2.getWorkingHours() + ", Стоимость: " + attraction2.getCost());
+        System.out.println("Аттракция: " + attraction3.getName() + ", Время работы: " + attraction3.getWorkingHours() + ", Стоимость: " + attraction3.getCost());
     }
 }
